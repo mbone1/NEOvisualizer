@@ -1,9 +1,25 @@
 var express = require("express");
 var router = express.Router();
+const axios = require('axios')
+require('dotenv').config();
 
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.send("API is working properly");
+let url = "https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=";
+let apiKey = process.env.API_KEY
+
+
+router.get("/", async function (req, res, next) {
+  try {
+    let responseData = await axios.get(url + apiKey)
+    responseData = responseData.data
+    res.send(responseData)
+  }
+  catch (err) {
+    console.log(err)
+  }
 });
 
+
+
+
+  
 module.exports = router;

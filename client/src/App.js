@@ -1,6 +1,5 @@
 import './App.css';
 import React, { useEffect, useState, } from 'react'
-import axios from 'axios'
 
 function App() {
 
@@ -9,8 +8,13 @@ function App() {
   function fetchData() {
     const result = fetch("http://localhost:9000/testAPI")
       .then(res => res.text())
-      .then(res => setData({ apiResponse: res }))
+      .then(res => setData({ apiResponse: res }),
+        console.log(data))
+      .then(function (res) {
+        console.log(res)
+      })
       .catch(err => err);
+   
 
   }
 
@@ -37,13 +41,16 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        {data.apiResponse}
         {/* {data} */}
         {/* {data.hits.map(item => (
           <li key={item.objectID}>
             <a href={item.url}>{item.title}</a>
         </li>
       ))} */}
-        {data.apiResponse}
+        {/* {data.apiResponse.map(() => {
+
+        })} */}
       </header>
     </div>
   );
