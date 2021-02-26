@@ -6,7 +6,7 @@ function App() {
   const [data, setData] = useState({});
   
   function fetchData() {
-    const result = fetch("http://localhost:9000/testAPI")
+    const result = fetch("http://localhost:9000/NASA")
       .then(res => res.text())
       .then(res => setData({ apiResponse: res }),
         console.log(data))
