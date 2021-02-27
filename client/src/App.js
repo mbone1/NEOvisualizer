@@ -1,59 +1,50 @@
 import './App.css';
 import React, { useEffect, useState, } from 'react'
+import Floaters from './components/sphere'
+
 
 function App() {
+  const [data, setData] = useState([]);
+  const getData = () => fetch("http://localhost:9000/NASA").then(res => res.json())
 
-  const [data, setData] = useState({});
+    useEffect(() => {
+      getData().then(res => setData(res.near_earth_objects)
+      );
+    }, []);
   
-  function fetchData() {
-    const result = fetch("http://localhost:9000/NASA")
-      .then(res => res.text())
-      .then(res => setData({ apiResponse: res }),
-        console.log(data))
-      .then(function (res) {
-        console.log(res)
-      })
-      .catch(err => err);
-   
-
-  }
-
+  console.log(data);
   
-
-  useEffect(() => {
-    // const result = await axios("http://localhost:9000/testAPI");
-    fetchData()
-    
-    // async function fetchData() {
-    //   const result = axios("http://localhost:9000/testAPI");
-    //   setData (result)
-    // }
-    // fetchData()
-  }, []);
-
-
-  // callAPI() {
-  //   fetch("http://localhost:9000/testAPI")
-  //     .then(res => res.text())
-  //     .then(res => this.setState({ apiResponse: res }));
-  // }
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        {data.apiResponse}
-        {/* {data} */}
-        {/* {data.hits.map(item => (
-          <li key={item.objectID}>
-            <a href={item.url}>{item.title}</a>
-        </li>
-      ))} */}
-        {/* {data.apiResponse.map(() => {
-
-        })} */}
-      </header>
-    </div>
-  );
+  let testRender;
+  if (data) {
+    testRender = data.map((obs) => <div><span>
+      {obs.name_limited}
+    </span>
+      <p>
+      {obs.estimated_diameter.feet.estimated_diameter_min}</p>
+      <p>
+      {obs.estimated_diameter.feet.estimated_diameter_max}</p>
+    </div>)
 }
+else {
+  testRender = <p>"loading..."</p>;
+}
+   
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Floaters />
+          {testRender}
+        </header>
+      </div>
+    );
+  }
+  
+  export default App;
 
-export default App;
+
+  
+
+
+
+
+
