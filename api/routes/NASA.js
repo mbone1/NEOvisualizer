@@ -9,8 +9,7 @@ let apiKey = process.env.API_KEY
 
 router.get("/", async function (req, res, next) {
   try {
-    let responseData = await axios.get(url + apiKey)
-    responseData = responseData.data
+    let responseData = await axios.get(url + apiKey).data
     res.send(responseData)
   }
   catch (err) {
