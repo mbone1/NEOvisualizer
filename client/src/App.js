@@ -1,6 +1,5 @@
 import './App.css';
 import React, { useEffect, useState, } from 'react'
-import Floaters from './components/sphere'
 import Sphere2 from './components/sphere2'
 import P5Wrapper from 'react-p5-wrapper'
 
@@ -15,6 +14,7 @@ function App() {
     }, []);
   
   console.log(data);
+  
   
   let testRender;
   if (data) {
@@ -33,7 +33,7 @@ else {
    
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="">
         </header>
           <P5Wrapper sketch={Sphere2} />
           {/* <Floaters /> */}
